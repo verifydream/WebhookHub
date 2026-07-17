@@ -1,36 +1,78 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🔗 WebhookHub
 
-## Getting Started
+> Debug webhooks bareng tim, tanpa chaos.
 
-First, run the development server:
+Team workspace untuk capture, inspect, share, dan document webhook events.
+
+## 🚀 Tech Stack
+
+| Layer | Tech |
+|-------|------|
+| Frontend | Next.js 14 + React |
+| Backend | Next.js API Routes + Hono |
+| Database | PostgreSQL (Supabase-ready) |
+| Auth | Clerk (env-ready) |
+| Styling | Tailwind CSS (dark theme) |
+
+## 📦 Features
+
+- ✅ Create webhook hubs with unique URLs
+- ✅ Capture incoming webhooks (`/api/w/:hubId`)
+- ✅ Dark dashboard with payload inspector
+- ✅ Team commenting on events
+- ✅ Auto-generated docs from real payloads
+- ✅ Send test webhooks from dashboard
+
+## 🏁 Quick Start
 
 ```bash
+cp .env.example .env
+npm install
+npm run db:migrate
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🔧 Environment Variables
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```env
+DATABASE_URL=postgresql://user:pass@localhost:5432/webhookhub
+SUPABASE_URL=https://your-project.supabase.co
+SUPABASE_ANON_KEY=your_anon_key
+CLERK_SECRET_KEY=your_clerk_key
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_pub_key
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📡 API Endpoints
 
-## Learn More
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/hubs` | Create hub |
+| GET | `/api/hubs/:id` | Get hub info |
+| ALL | `/api/w/:hubId` | Webhook receiver |
+| GET | `/api/hubs/:id/events` | List events |
+| GET | `/api/events/:id` | Event detail |
+| POST | `/api/events/:id/comments` | Add comment |
+| GET | `/api/hubs/:id/docs` | Auto-generated docs |
 
-To learn more about Next.js, take a look at the following resources:
+## 📂 Project Structure
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+webhookhub/
+├── src/
+│   ├── app/
+│   │   ├── api/
+│   │   │   ├── hubs/
+│   │   │   ├── w/[hubId]/
+│   │   │   └── events/[id]/
+│   │   ├── layout.jsx
+│   │   └── page.js
+│   └── lib/
+│       ├── db.js
+│       └── db-migrate.js
+├── .env.example
+└── README.md
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📄 License
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+MIT
