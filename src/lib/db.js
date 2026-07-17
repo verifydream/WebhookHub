@@ -12,6 +12,9 @@ export async function getHub(id) {
   const { rows } = await pool.query('SELECT * FROM hubs WHERE id=$1', [id]);
   return rows[0];
 }
+export async function deleteHub(id) {
+  await pool.query('DELETE FROM hubs WHERE id=$1', [id]);
+}
 export async function saveEvent(hubId, { method, headers, body, rawBody, sourceIp }) {
   const { rows } = await pool.query(
     `INSERT INTO webhook_events (hub_id,method,headers,body,raw_body,source_ip) VALUES ($1,$2,$3,$4,$5,$6) RETURNING *`,
